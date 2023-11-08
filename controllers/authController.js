@@ -6,7 +6,7 @@ export const registerController = async (req, res) => {
     const { name, email, password, phone, address } = req.body;
     //Validations
     if (!name) {
-      return res.send({ message: "Name is Required" });
+      return res.send({ error: "Name is Required" });
     }
     if (!email) {
       return res.send({ message: "Email is Required" });
@@ -88,7 +88,7 @@ export const loginController = async (req, res) => {
       success: true,
       message: "login successfully",
       user: {
-        _id: user_id, //! önemli daha önce yoktu burası
+        _id: user._id, //! önemli daha önce yoktu burası
         name: user.name,
         email: user.email,
         phone: user.phone,
@@ -107,5 +107,10 @@ export const loginController = async (req, res) => {
 };
 //test constroller
 export const testController = (req, res) => {
-  res.send("Protected Routes");
+  try {
+    res.send("Protected Routes");
+  } catch (error) {
+    console.log(error);
+    res.send({ error });
+  }
 };
