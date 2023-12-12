@@ -53,7 +53,7 @@ export const getProductController = async (req, res) => {
       .find({})
       .populate("category")
       .select("-photo")
-      .limit(12) //12 ürün sınırı getrirdik burayı düzelt sonra
+      // //12 ürün sınırı getrirdik burayı düzelt sonra
       .sort({ createdAt: -1 });
     res.status(200).send({
       success: true,
