@@ -61,8 +61,8 @@ const CartPage = () => {
                     src={`/api/v1/product/product-photo/${p._id}`}
                     className="card-img-top"
                     alt={p.name}
-                    width="100px"
-                    height={"100px"}
+                    width="300px"
+                    height={"300px"}
                   />
                 </div>
                 <div className="col-md-8">
