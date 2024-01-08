@@ -1,4 +1,6 @@
 import userModel from "../models/userModel.js";
+import orderModel from "../models/orderModel.js";
+
 import { comparePassword, hashPassword } from "../helpers/authHelpers.js";
 import JWT from "jsonwebtoken";
 export const registerController = async (req, res) => {
@@ -92,7 +94,7 @@ export const loginController = async (req, res) => {
       success: true,
       message: "login successfully",
       user: {
-        _id: user._id, //! önemli daha önce yoktu burası
+        _id: user._id,
         name: user.name,
         email: user.email,
         phone: user.phone,
@@ -158,7 +160,7 @@ export const testController = (req, res) => {
   }
 };
 
-//update prfole
+//update profile
 export const updateProfileController = async (req, res) => {
   try {
     const { name, email, password, address, phone } = req.body;
@@ -188,6 +190,63 @@ export const updateProfileController = async (req, res) => {
     res.status(400).send({
       success: false,
       message: "Error WHile Update profile",
+      error,
+    });
+  }
+};
+
+//orders
+export const getOrdersController = async (req, res) => {
+  try {
+    const orders = await orderModel
+      .find({ buyer: req.user._id })
+      .populate("products", "-photo")
+      .populate("buyer", "name");
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error WHile Geting Orders",
+      error,
+    });
+  }
+};
+//orders
+export const getAllOrdersController = async (req, res) => {
+  try {
+    const orders = await orderModel
+      .find({})
+      .populate("products", "-photo")
+      .populate("buyer", "name")
+      .sort({ createdAt: "-1" });
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error WHile Geting Orders",
+      error,
+    });
+  }
+};
+
+//order status
+export const orderStatusController = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+    const orders = await orderModel.findByIdAndUpdate(
+      orderId,
+      { status },
+      { new: true }
+    );
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error While Updateing Order",
       error,
     });
   }
