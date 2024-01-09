@@ -13,14 +13,11 @@ const Policy = () => {
           />
         </div>
         <div className="col-md-4">
-          <p> gizlilik politikası ekle</p>
-          <p> gizlilik politikası ekle</p>
-          <p> gizlilik politikası ekle</p>
-          <p> gizlilik politikası ekle</p>
-          <p> gizlilik politikası ekle</p>
-          <p> gizlilik politikası ekle</p>
-          <p> gizlilik politikası ekle</p>
-          <p> gizlilik politikası ekle</p>
+          <h3> Gizlilik Politikası</h3>
+          <h3> ISO 10002 Politikası</h3>
+          <h3> Kalite Politikası</h3>
+          <h3> Çevre Politikası</h3>
+          <h3> Enerji Politikası</h3>
         </div>
       </div>
     </Layout>
